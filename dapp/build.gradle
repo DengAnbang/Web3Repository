@@ -1,0 +1,63 @@
+plugins {
+    id 'kotlin-android'
+}
+if (singleModule.toBoolean()) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
+apply plugin: "kotlin-kapt"
+apply plugin: 'kotlin-android'
+apply from: "../buildSrc/common_build.gradle"
+
+if (!singleModule.toBoolean()) {
+//    apply from: "./uploadArchives.gradle"
+} else {
+    apply from: "../buildSrc/compose_build.gradle"
+}
+android {
+    namespace = "com.dab.web3.dapp"
+    testNamespace = "com.dab.web3.dapp.test"
+    defaultConfig {
+        // 只有独立运行时才需要 applicationId
+        if (singleModule.toBoolean()) {
+            applicationId "com.dab.web3.dap"
+            versionName "1.0.2"
+            versionCode 2
+        }
+    }
+    resourcePrefix project.getName() + "_"
+    sourceSets {
+        main {
+            // 单独调试与集成调试时使用不同的 AndroidManifest.xml 文件
+            if (singleModule.toBoolean()) {
+                manifest.srcFile 'src/debug/AndroidManifest.xml'
+                //多增加一个资源调试路径 src/main/debug/res
+//                res.srcDirs = ['src/main/res', 'src/main/debug/res']
+//                java.srcDirs = ['src/debug/java']
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+                java {
+                    //module 模式下要 排除src/test/文件夹下的所有文件
+                    exclude 'src/debug/'
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    //bitcoinj
+    implementation("org.bitcoinj:bitcoinj-core:0.16.2")
+            {
+                exclude module: 'bcprov-jdk15on'
+                exclude module: 'bcprov-jdk15to18'
+            }
+    implementation("org.web3j:core:4.9.5")
+            {
+                exclude module: 'bcprov-jdk15on'
+                exclude module: 'bcprov-jdk15to18'
+            }
+    implementation 'org.bouncycastle:bcprov-jdk18on:1.77'
+}
+

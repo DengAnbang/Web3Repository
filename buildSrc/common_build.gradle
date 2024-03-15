@@ -1,0 +1,65 @@
+ext {
+    androidId = [
+            compileSdkVersion: 34,
+            minSdkVersion    : 23,
+            targetSdkVersion : 34,
+
+    ]
+}
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+//apply plugin: 'kotlin-android-extensions'
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
+
+android {
+    compileSdkVersion androidId.compileSdkVersion
+    defaultConfig {
+        minSdk androidId.minSdkVersion
+        targetSdk androidId.targetSdkVersion
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    defaultConfig {
+        vectorDrawables.useSupportLibrary = true
+    }
+    kotlin {
+        jvmToolchain(8)
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+dependencies {
+
+    implementation "androidx.activity:activity-ktx:1.6.1"
+    def core_version = "1.9.0"
+    implementation("androidx.core:core:$core_version")
+    implementation("androidx.core:core-ktx:$core_version")
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+
+//    implementation 'com.google.android.material:material:1.6.0'
+
+//    implementation "com.tencent:mmkv-static:1.2.10"
+    implementation "com.google.code.gson:gson:2.8.6"
+    def retrofit_version = "2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:${retrofit_version}"
+    implementation "com.squareup.retrofit2:converter-gson:${retrofit_version}"
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.11.0'
+}
+//repositories {
+//    //implementation "com.airbnb.android:lottie-compose:$lottieVersion"
+//    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+//}

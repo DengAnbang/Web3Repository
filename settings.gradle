@@ -10,8 +10,10 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://artifacts.consensys.net/public/maven/maven/" }
     }
 }
 
 rootProject.name = "Web3Repository"
 include ':app'
+include ':dapp'
