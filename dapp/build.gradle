@@ -59,10 +59,10 @@ dependencies {
                 exclude module: 'bcprov-jdk15to18'
             }
     implementation 'org.bouncycastle:bcprov-jdk18on:1.77'
-    implementation ("com.github.metaplex-foundation.SolanaKT:solana:2.1.1")
-            {
-                exclude module: 'bcprov-jdk15on'
-                exclude module: 'bcprov-jdk15to18'
-            }
+//    implementation ("com.github.metaplex-foundation.SolanaKT:solana:2.1.1")
+//            {
+//                exclude module: 'bcprov-jdk15on'
+//                exclude module: 'bcprov-jdk15to18'
+//            }
 }
 
