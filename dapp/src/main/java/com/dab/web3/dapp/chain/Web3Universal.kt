@@ -48,7 +48,9 @@ interface Web3Universal {
     /**
      * 获取gasPrice
      */
-    suspend fun gasPrice(): Web3Result<BigInteger>
+    suspend fun gasPrice(): Web3Result<BigInteger>{
+        TODO("Not yet implemented")
+    }
 
     /**
      * 获取代币的余额

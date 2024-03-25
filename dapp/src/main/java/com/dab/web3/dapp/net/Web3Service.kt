@@ -9,6 +9,7 @@ import okhttp3.ResponseBody
 import org.web3j.utils.Numeric
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.HeaderMap
 import retrofit2.http.POST
 import retrofit2.http.Streaming
@@ -23,12 +24,18 @@ interface Web3Service {
     suspend fun downloadFile(@Url fileUrl: String): ResponseBody
 
     @POST
-    suspend fun  rpcBody(@Url url: String, @Body body: RequestBody, @HeaderMap header: Map<String, String> = mapOf()): JsonObject
+    suspend fun rpcBody(@Url url: String, @Body body: RequestBody, @HeaderMap header: Map<String, String> = mapOf()): JsonObject
+
+    @POST
+    suspend fun rpcBody(@Header("Authorization") auth: String, @Url url: String, @Body body: RequestBody, @HeaderMap header: Map<String, String> = mapOf()): JsonObject
 
 
 }
 
 fun Map<String, Any>.toRequestBody() =
     Gson().toJson(this).toRequestBody("application/json".toMediaTypeOrNull())
+
+fun Map<String, Any>.toJson() =
+    Gson().toJson(this)
 
 fun String.decodeQuantity() = Numeric.decodeQuantity(this)

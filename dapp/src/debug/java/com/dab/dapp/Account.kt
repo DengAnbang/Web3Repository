@@ -34,3 +34,5 @@ val contractAddressWordDevBSC = "0xD9588c646a2DE8c220e6583CCE609fE84D82aAD7"
 val contractAddressUSDTDevBSC = "0xeBe766ae09d2848ec143cC6DA2f988340F5BB773"
 val contractAddressSkinDevBSC = "0xacc1A2df82421A96F071D181eaBDAe8DB98F4dBB"
 
+
+

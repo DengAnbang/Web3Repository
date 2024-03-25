@@ -11,6 +11,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven { url "https://artifacts.consensys.net/public/maven/maven/" }
+        maven { url 'https://jitpack.io' }
     }
 }
 

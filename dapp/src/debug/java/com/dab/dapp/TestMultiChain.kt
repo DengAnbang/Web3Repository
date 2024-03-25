@@ -21,6 +21,7 @@ import com.dab.web3.dapp.chain.ChainETH
 import com.dab.web3.dapp.chain.ChainSolana
 import com.dab.web3.dapp.chain.ChainTron
 import com.dab.web3.dapp.toConvertWei
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.web3j.utils.Convert
 import java.math.BigDecimal
@@ -79,7 +80,7 @@ fun TestMultiChain(type: MutableState<Int>) {
         item {
             ShowItem(title = "生成私钥地址") {
                 rememberCoroutineScope.launch {
-                    val web3KeyPairByMnemonics = web3jUtils.getWeb3KeyPairByMnemonics(mainMnemonics.split(" ").filter {
+                    val web3KeyPairByMnemonics = web3jUtils.getWeb3KeyPairByMnemonics("mask mimic win student radar light bean chicken bulb turkey large ladder".split(" ").filter {
                         it.isNotEmpty()
                     })
                     showText.value = web3KeyPairByMnemonics.toString()
@@ -118,7 +119,7 @@ fun TestMultiChain(type: MutableState<Int>) {
             }
             ShowItem(title = "transfer") {
                 rememberCoroutineScope.launch {
-                    val mainAddressBalance = web3jUtils.transfer(mainPrivate, testAddress, BigDecimal("0.0001"))
+                    val mainAddressBalance = web3jUtils.transfer(mainPrivate, testAddress, BigDecimal("0.01"))
                     LogUtils.e(mainAddressBalance)
                     showText.value = mainAddressBalance.toString()
                 }
@@ -127,7 +128,22 @@ fun TestMultiChain(type: MutableState<Int>) {
 
             ShowItem(title = "test") {
                 rememberCoroutineScope.launch {
-
+                    val chainSolana = web3jUtils.web3Universal as ChainSolana
+                    chainSolana.test()
+                }
+            }
+            ShowItem(title = "test1") {
+                rememberCoroutineScope.launch(Dispatchers.IO) {
+                    val chainSolana = web3jUtils.web3Universal as ChainSolana
+//                    chainSolana.createTokenAccount()
+                    chainSolana.test1()
+                }
+            }
+            ShowItem(title = "test2") {
+                rememberCoroutineScope.launch {
+                    val chainSolana = web3jUtils.web3Universal as ChainSolana
+//                    chainSolana.getTokenSupply("GR1DP5Sq5ed5vohm8rAu38ndAto2FRgezKM45Jkzvy7L")
+                    chainSolana.test2()
                 }
             }
         }
